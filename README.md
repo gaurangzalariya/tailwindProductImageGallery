@@ -21,3 +21,5 @@ A lightweight, responsive image gallery with a modal viewer built using HTML, Ja
 
 - Built with [Tailwind CSS](https://tailwindcss.com/)
 - Inspired by modern e-commerce galleries
+
+[Preview this here](https://phpstack-1231093-4924533.cloudwaysapps.com/tailwindProductImageGallery/)
