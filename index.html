@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+        important: true,
+        prefix: 'tw-',
+        theme: {
+            extend: {
+                colors: {
+                    clifford: '#da373d',
+                }
+            }
+        }
+    }
+  </script>
+</head>
+<body>
+    <div class="tw-max-w-[600px] tw-mx-auto">
+        <div class="productCustomGallery tw-scrollbar-hide tw-flex tw-overflow-x-auto sm:tw-gap-2 md:tw-grid md:tw-grid-cols-2 md:tw-gap-4">
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/1.jpg" alt="Image Alt" data-full-image="images/1.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/2.jpg" alt="Image Alt" data-full-image="images/2.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/3.jpg" alt="Image Alt" data-full-image="images/3.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/4.jpg" alt="Image Alt" data-full-image="images/4.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 2">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/5.jpg" alt="Image Alt 2" data-full-image="images/5.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 2">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/6.jpg" alt="Image Alt 2" data-full-image="images/6.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 2">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/7.jpg" alt="Image Alt 2" data-full-image="images/7.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 2">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/8.jpg" alt="Image Alt 2" data-full-image="images/8.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 3">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/9.jpg" alt="Image Alt 3" data-full-image="images/9.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 3">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/10.jpg" alt="Image Alt 3" data-full-image="images/10.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 3">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/11.jpg" alt="Image Alt 3" data-full-image="images/11.jpg">
+            </div>
+            <div class="tw-media-item tw-flex-shrink-0 tw-w-[80%] md:tw-w-auto" data-product-alt="Image Alt 3">
+                <img class="tw-product-image tw-w-full tw-cursor-pointer" src="images/12.jpg" alt="Image Alt 3" data-full-image="images/12.jpg">
+            </div>
+        </div>
+        <div class="tw-scroll-progress-container">
+            <div class="tw-scroll-progress-bar"></div>
+        </div>
+    </div>
+
+<div id="tw-image-modal" class="tw-hidden tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-50 tw-flex tw-justify-center tw-items-center tw-z-50">
+    <div class="tw-relative tw-w-full tw-h-full tw-bg-white">
+        <!-- Main image container -->
+        <div class="tw-w-full tw-h-full tw-overflow-y-auto">
+            <div id="tw-modal-images-container" class="tw-flex tw-flex-col tw-gap-4">
+                <!-- Images will be inserted here dynamically -->
+            </div>
+        </div>
+        <!-- Thumbnails sidebar -->
+        <div class="tw-absolute tw-z-10 tw-w-24 tw-top-5 tw-left-5">
+            <div id="tw-modal-thumbnails" class="tw-flex tw-flex-col tw-gap-2 tw-p-2">
+                <!-- Thumbnails will be inserted here -->
+            </div>
+        </div>
+        
+        <button id="tw-close-modal" class="tw-absolute tw-top-5 tw-right-5 tw-w-[32px] tw-h-[32px] tw-text-gray-400 tw-bg-white tw-rounded-full tw-p-1.5 tw-text-base">X</button>
+    </div>
+</div>
+
+<script>
+// Progress bar for product gallery
+const slider = document.querySelector('.productCustomGallery');
+const progressBar = document.querySelector('.tw-scroll-progress-bar');
+
+slider.addEventListener('scroll', () => {
+    const maxScrollLeft = slider.scrollWidth - slider.clientWidth; // Total scrollable width
+    const scrollPercentage = (slider.scrollLeft / maxScrollLeft) * 100; // Calculate scroll percentage
+    progressBar.style.width = `${scrollPercentage}%`; // Set the width of the progress bar
+});
+
+// Get modal elements
+const modal = document.getElementById('tw-image-modal');
+const closeModal = document.getElementById('tw-close-modal');
+
+// Function to toggle body scroll
+function toggleBodyScroll(disable) {
+    document.body.style.overflow = disable ? 'hidden' : '';
+}
+
+// Update the click event handler for product images
+document.querySelectorAll('.tw-product-image').forEach((image) => {
+    image.addEventListener('click', function () {
+        const clickedAlt = this.getAttribute('alt');
+        const clickedSrc = this.getAttribute('data-full-image'); // Get clicked image source
+        const modalContainer = document.getElementById('tw-modal-images-container');
+        const thumbnailsContainer = document.getElementById('tw-modal-thumbnails');
+        
+        // Clear existing content and observers
+        modalContainer.innerHTML = '';
+        thumbnailsContainer.innerHTML = '';
+        if (window.currentObserver) {
+            window.currentObserver.disconnect();
+        }
+
+        // Find all unique images with matching alt text
+        const matchingImages = Array.from(document.querySelectorAll(`.tw-product-image[alt="${clickedAlt}"]`));
+        const uniqueImages = matchingImages.filter((img, index, self) => 
+            index === self.findIndex(t => t.getAttribute('data-full-image') === img.getAttribute('data-full-image'))
+        );
+        
+        // Find the index of clicked image by matching data-full-image
+        const clickedIndex = uniqueImages.findIndex(img => 
+            img.getAttribute('data-full-image') === clickedSrc
+        );
+        
+        uniqueImages.forEach((img, index) => {
+            const fullImageSrc = img.getAttribute('data-full-image');
+            
+            // Create main image
+            const modalImage = document.createElement('img');
+            modalImage.src = fullImageSrc;
+            modalImage.classList.add('tw-w-full', 'tw-h-auto', 'tw-bg-white');
+            modalImage.id = `modal-image-${index}`;
+            modalContainer.appendChild(modalImage);
+            
+            // Create thumbnail
+            const thumbnail = document.createElement('img');
+            thumbnail.src = img.src;
+            thumbnail.classList.add(
+                'tw-w-20', 
+                'tw-h-20', 
+                'tw-object-cover', 
+                'tw-cursor-pointer', 
+                'tw-rounded', 
+                'tw-border-2',
+                'tw-border-solid',
+                index === clickedIndex ? 'tw-border-black' : 'tw-border-gray-300'
+            );
+            thumbnail.dataset.index = index;
+            thumbnail.addEventListener('click', () => {
+                thumbnailsContainer.querySelectorAll('img').forEach(thumb => {
+                    thumb.classList.remove('tw-border-black');
+                    thumb.classList.add('tw-border-gray-300');
+                });
+                thumbnail.classList.remove('tw-border-gray-300');
+                thumbnail.classList.add('tw-border-black');
+                document.getElementById(`modal-image-${index}`).scrollIntoView({ behavior: 'smooth' });
+            });
+            thumbnailsContainer.appendChild(thumbnail);
+        });
+
+        // Create and store new observer
+        window.currentObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = entry.target.id.split('-').pop();
+                    thumbnailsContainer.querySelectorAll('img').forEach(thumb => {
+                        if (thumb.dataset.index === index) {
+                            thumb.classList.remove('tw-border-gray-300');
+                            thumb.classList.add('tw-border-black');
+                        } else {
+                            thumb.classList.remove('tw-border-black');
+                            thumb.classList.add('tw-border-gray-300');
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        // Observe all modal images
+        modalContainer.querySelectorAll('img').forEach(img => {
+            window.currentObserver.observe(img);
+        });
+
+        // Show modal first
+        modal.classList.remove('tw-hidden');
+        toggleBodyScroll(true);
+
+        // Scroll to clicked image (after modal is visible)
+        requestAnimationFrame(() => {
+            const targetImage = document.getElementById(`modal-image-${clickedIndex}`);
+            if (targetImage) {
+                targetImage.scrollIntoView({ behavior: 'auto' });
+            }
+        });
+    });
+});
+
+// Update modal close handler
+closeModal.addEventListener('click', function () {
+    modal.classList.add('tw-hidden');
+    toggleBodyScroll(false);
+    
+    // Clean up observer
+    if (window.currentObserver) {
+        window.currentObserver.disconnect();
+    }
+});
+</script>
+</body>
+</html>
