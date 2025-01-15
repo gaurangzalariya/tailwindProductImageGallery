@@ -49,7 +49,7 @@ This gallery can be easily integrated into various platforms:
 - Built with [Tailwind CSS](https://tailwindcss.com/)
 - Inspired by modern e-commerce galleries
 
-[Preview here](https://phpstack-1231093-4924533.cloudwaysapps.com/tailwindProductImageGallery/)
+[Preview demo here](https://phpstack-1231093-4924533.cloudwaysapps.com/tailwindProductImageGallery/)
 
 ## Looking for Custom Implementation?
 
